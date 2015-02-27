@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:zcml="http://namespaces.zope.org/zcml">
+        <configure zcml:condition="installed Products.Zuul">
+
+            <include package="Products.ZenUtils.extdirect.zope" file="meta.zcml"/>
+
+
+            <!-- ZenPack Info -->
+
+            <browser:directRouter
+                name="ExtendedCisco_router"
+                for="*"
+                class="ZenPacks.community.ExtendedCisco.routers.ExtendedCiscoRouter"
+                namespace="Zenoss.remote"
+                permission="zenoss.View"
+            />
+    
+            <adapter
+                name="ExtendedCiscoAdapter"
+                provides="ZenPacks.community.ExtendedCisco.interfaces.IExtendedCiscoFacade"
+                for="*"
+                factory="ZenPacks.community.ExtendedCisco.facades.ExtendedCiscoFacade"
+            />
+                
+            <browser:resourceDirectory
+                    name="ExtendedCisco"
+                    directory="resources"
+            />
+
+            <!-- Component Info -->
+            <adapter factory="ZenPacks.community.ExtendedCisco.info.ciscoMemoryPoolInfo"
+                for="ZenPacks.community.ExtendedCisco.ciscoMemoryPool.ciscoMemoryPool"
+                provides="ZenPacks.community.ExtendedCisco.interfaces.IciscoMemoryPoolInfo"
+            />
+    
+            <browser:viewlet
+                name="js-ciscoMemoryPool"
+                paths="/++resource++ExtendedCisco/ciscomemorypool.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+
+            <utility provides="zope.schema.interfaces.IVocabularyFactory"
+                component=".info.ciscoMemoryPoolgetEventClassesVocabulary"
+                name="ciscoMemoryPoolgetEventClasses"
+            />
+
+            <!-- Component Info -->
+            <adapter factory="ZenPacks.community.ExtendedCisco.info.ciscoCPUInfo"
+                for="ZenPacks.community.ExtendedCisco.ciscoCPU.ciscoCPU"
+                provides="ZenPacks.community.ExtendedCisco.interfaces.IciscoCPUInfo"
+            />
+    
+            <browser:viewlet
+                name="js-ciscoCPU"
+                paths="/++resource++ExtendedCisco/ciscocpu.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+
+            <utility provides="zope.schema.interfaces.IVocabularyFactory"
+                component=".info.ciscoCPUgetEventClassesVocabulary"
+                name="ciscoCPUgetEventClasses"
+            />
+
+            <!-- Component Info -->
+            <adapter factory="ZenPacks.community.ExtendedCisco.info.ciscoEnhancedMemoryPoolInfo"
+                for="ZenPacks.community.ExtendedCisco.ciscoEnhancedMemoryPool.ciscoEnhancedMemoryPool"
+                provides="ZenPacks.community.ExtendedCisco.interfaces.IciscoEnhancedMemoryPoolInfo"
+            />
+    
+            <browser:viewlet
+                name="js-ciscoEnhancedMemoryPool"
+                paths="/++resource++ExtendedCisco/ciscoenhancedmemorypool.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+
+            <utility provides="zope.schema.interfaces.IVocabularyFactory"
+                component=".info.ciscoEnhancedMemoryPoolgetEventClassesVocabulary"
+                name="ciscoEnhancedMemoryPoolgetEventClasses"
+            />
+
+        </configure>
+    </configure>
+
