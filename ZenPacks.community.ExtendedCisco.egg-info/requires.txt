@@ -1,2 +1,0 @@
-ZenPacks.community.CiscoEnvMon
-ZenPacks.community.ConstructionKit
